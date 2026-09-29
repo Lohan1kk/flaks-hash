@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Painel{% endblock %}
+
+{% block content %}
+<h2>Painel (área restrita)</h2>
+<p>Olá, {{ nome_logado }}. Projetos vindos da tabela <code>projetos_privados</code>.</p>
+
+{% if projetos %}
+{% for p in projetos %}
+  <h3>{{ p.titulo }}</h3>
+  <p>Status: {{ p.status }} | Atualizado: {{ p.atualizado_em }}</p>
+  <p>{{ p.resumo }}</p>
+  <p>Tecnologias: {{ p.tecnologias }}</p>
+{% endfor %}
+{% else %}
+<p>Nenhum projeto no banco.</p>
+{% endif %}
+
+<h3>Acessos recentes</h3>
+{% if logs %}
+<table>
+  <tr>
+    <th>Página</th>
+    <th>Momento</th>
+  </tr>
+  {% for log in logs %}
+  <tr>
+    <td>{{ log.pagina }}</td>
+    <td>{{ log.momento }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Sem registros ainda.</p>
+{% endif %}
+
+<p><a href="{{ url_for('laboratorio') }}">Ir para o laboratório</a></p>
+{% endblock %}

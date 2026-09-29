@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ perfil_global.nome if perfil_global else 'Portfólio' }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <h1 class="site-title">
+      <a href="{{ url_for('index') }}">{{ perfil_global.nome if perfil_global else 'Portfólio' }}</a>
+    </h1>
+    <nav>
+      <a href="{{ url_for('index') }}">Sobre</a> |
+      <a href="{{ url_for('experiencia') }}">Experiência</a> |
+      {% if usuario_logado %}
+        <a href="{{ url_for('painel') }}">Painel</a> |
+        <a href="{{ url_for('laboratorio') }}">Laboratório</a> |
+        <a href="{{ url_for('logout') }}">Sair ({{ nome_logado }})</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <p class="msg {{ category }}">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <hr>
+    <p>Flask + SQLite + hash SHA-256</p>
+  </footer>
+</body>
+</html>

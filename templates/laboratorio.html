@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Laboratório{% endblock %}
+
+{% block content %}
+<h2>Laboratório de hashes (área restrita)</h2>
+<p>Conteúdo da tabela <code>laboratorio_hashes</code> — atividade de senhas e força bruta.</p>
+
+{% if usuario_demo %}
+<h3>O que está no banco</h3>
+<ul>
+  <li>usuário: <code>{{ usuario_demo.usuario }}</code></li>
+  <li>senha_hash: <code>{{ usuario_demo.senha_hash }}</code></li>
+</ul>
+<p>A senha em texto claro não fica salva — só o hash.</p>
+{% endif %}
+
+{% if cards %}
+{% for c in cards %}
+  <h3>{{ c.ordem }}. {{ c.titulo }}</h3>
+  <p>{{ c.conceito }}</p>
+  <p><strong>Exemplo:</strong> {{ c.exemplo }}</p>
+  <p><strong>Conclusão:</strong> {{ c.conclusao }}</p>
+{% endfor %}
+{% else %}
+<p>Nenhum registro no banco.</p>
+{% endif %}
+
+<hr>
+<p>
+  Verificar senha = hashear a tentativa e comparar com o hash guardado.
+  Descobrir senha = testar candidatos até o hash bater (força bruta).
+  PIN curto + SHA-256 rápido = fácil de quebrar. Em produção use Argon2id / scrypt / PBKDF2.
+</p>
+
+<p><a href="{{ url_for('painel') }}">Voltar ao painel</a></p>
+{% endblock %}

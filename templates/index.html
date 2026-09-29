@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ perfil.nome }} — Sobre{% endblock %}
+
+{% block content %}
+<h2>{{ perfil.nome }}</h2>
+<p><strong>{{ perfil.titulo }}</strong></p>
+<p>{{ perfil.resumo }}</p>
+
+<h3>Contato</h3>
+<ul>
+  <li>Localização: {{ perfil.localizacao }}</li>
+  <li>E-mail: <a href="mailto:{{ perfil.email }}">{{ perfil.email }}</a></li>
+  {% if perfil.linkedin %}
+  <li>LinkedIn: <a href="{{ perfil.linkedin }}" target="_blank" rel="noopener">{{ perfil.linkedin }}</a></li>
+  {% endif %}
+  {% if perfil.github %}
+  <li>GitHub: <a href="{{ perfil.github }}" target="_blank" rel="noopener">{{ perfil.github }}</a></li>
+  {% endif %}
+</ul>
+
+<h3>Habilidades</h3>
+{% if habilidades %}
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Categoria</th>
+    <th>Nível</th>
+  </tr>
+  {% for h in habilidades %}
+  <tr>
+    <td>{{ h.nome }}</td>
+    <td>{{ h.categoria }}</td>
+    <td>{{ h.nivel }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Nenhuma habilidade cadastrada.</p>
+{% endif %}
+{% endblock %}

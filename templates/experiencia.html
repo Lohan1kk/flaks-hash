@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Experiência{% endblock %}
+
+{% block content %}
+<h2>Experiência</h2>
+{% if experiencias %}
+{% for e in experiencias %}
+  <h3>{{ e.cargo }} — {{ e.empresa }}</h3>
+  <p><em>{{ e.periodo }}</em></p>
+  <p>{{ e.descricao }}</p>
+{% endfor %}
+{% else %}
+<p>Nenhuma experiência cadastrada.</p>
+{% endif %}
+
+<h2>Formação</h2>
+{% if formacoes %}
+{% for f in formacoes %}
+  <h3>{{ f.curso }} — {{ f.instituicao }}</h3>
+  <p><em>{{ f.periodo }}</em></p>
+  <p>{{ f.descricao }}</p>
+{% endfor %}
+{% else %}
+<p>Nenhuma formação cadastrada.</p>
+{% endif %}
+{% endblock %}
